@@ -1,0 +1,1 @@
+to run the program launsch ```python gui.py```
