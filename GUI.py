@@ -9,15 +9,14 @@ from worker import Worker
 pygame.init()
 width, height = WIDTH, HIGHT
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Spermozoids")
+pygame.display.set_caption("Fast_delivery")
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0,0,255)
 
 def main():
-    locations = []
-    eaten_circles = []
+
     trail = []  # Store positions of the player circle for trail effect
     w1 = Worker("w1" ,width // 2, height // 2, 30, 5)
     r = Restaurant("r",width // 3,height // 2)
@@ -59,18 +58,15 @@ def main():
         for ord in w1.queue:
             pygame.draw.circle(screen, BLUE, (ord.x, ord.y), ord.radius)
 
-        # Draw the trail effect
         last = w1.radius
         for index,pos in enumerate(trail):
             last = last * (3.8 / 4.0)
             pygame.draw.circle(screen, GREEN, pos,last)
 
 
-        # Draw player circle
         pygame.draw.circle(screen, GREEN, (w1.x, w1.y), w1.radius)
         pygame.draw.circle(screen, RED, (r.x, r.y), r.radius)
 
-        # Check for collision with other circles
 
         pygame.display.flip()
         clock.tick(60)
