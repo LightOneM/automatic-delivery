@@ -15,15 +15,20 @@ class Restaurant(abs_obj):
         self.orders.remove(_order)
 
     def load(self, _worker):
-        if self.collusion_with(_worker):
-            for _order in self.orders:
-                self.orders.remove(_order)
-                _worker.add_order(_order)
+        for _order in self.orders:
+            self.orders.remove(_order)
+            _worker.add_order(_order)
 
     def get_restaurant_weight(self):
-        #todo weight calculations here
-        return 0;
+        return len(self.orders)
+
 
     def call(self,_worker):
-        #todo a function to call a worker
-        pass
+        if _worker.occupiedby is None:
+            _worker.occupiedby = self
+        if _worker.occupiedby == self:
+            _worker.to_restaurant(self)
+            if self.collusion_with(_worker):
+                _worker.occupiedby = "delivery"
+                self.load(_worker)
+

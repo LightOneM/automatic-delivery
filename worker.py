@@ -12,8 +12,8 @@ class Worker(abs_obj):
         self.name = name
         self.max_load = max_load
         self.speed = speed
-        self.state = "waiting"
         self.queue = []
+        self.occupiedby = None
 
     def add_order(self, _order):
         self.queue.append(_order)
@@ -29,21 +29,16 @@ class Worker(abs_obj):
 
     def deliver(self):
         if self.queue:
-            self.state = "action"
             _order = self.queue[0]
             if self.collusion_with(_order):
                 self.queue.pop(0)
             else:
                 self.step_to(_order)
-        else:
-            self.state = "waiting"
+        if not self.queue and self.occupiedby=="delivery":
+            self.occupiedby =None
 
     def to_restaurant(self, _rest):
-        self.state = "action"
-        if self.collusion_with(_rest):
-            _rest.load(self)
-        else:
-            self.step_to(_rest)
+        self.step_to(_rest)
 
     # todo add a limited step when close to the target
     def step_to(self, _obj):
