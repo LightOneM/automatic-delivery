@@ -18,9 +18,9 @@ BLUE = (0,0,255)
 def main():
 
     #trail = []  # Store positions of the player circle for trail effect
-    w1 = Worker("w1" ,width // 2, height // 3, 30, 9)
-    w2 =Worker("w2", width // 2, height // 2, 30,  9)
-    w3 =Worker("w3", width // 3, height // 2, 30, 9)
+    w1 = Worker("w1" ,width // 2, height // 3, 30, 7)
+    w2 =Worker("w2", width // 2, height // 2, 30,  4)
+    w3 =Worker("w3", width // 3, height // 2, 30, 3)
     workers = [w1,w3,w2]
     r = Restaurant("r",width // 3,height // 2)
     restaurants = [r]
@@ -62,9 +62,9 @@ def main():
         #     trail.pop(len(trail)-1)
 
 
-        if random.random() < 0.09:
-            rand_x = random.randint(0, width)
-            rand_y = random.randint(0, height)
+        if random.random() < 0.05:
+            rand_x = random.randint(30, width-30)
+            rand_y = random.randint(30, height-30)
             r.add_order(Order(rand_x,rand_y,1,0))
 
 
