@@ -24,9 +24,9 @@ class Restaurant(abs_obj):
 
 
     def call(self,_worker):
-        if _worker.occupiedby is None:
-            _worker.occupiedby = self
-        if _worker.occupiedby == self:
+        if _worker.occupiedby =="free":
+            _worker.occupiedby = self.name
+        if _worker.occupiedby == self.name:
             _worker.to_restaurant(self)
             if self.collusion_with(_worker):
                 _worker.occupiedby = "delivery"

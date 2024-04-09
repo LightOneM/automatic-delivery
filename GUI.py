@@ -18,10 +18,10 @@ BLUE = (0,0,255)
 def main():
 
     #trail = []  # Store positions of the player circle for trail effect
-    w1 = Worker("w1" ,width // 2, height // 3, 30, 3)
-    w3 =Worker("w1", width // 2, height // 2, 30,  3)
-    w4 =Worker("w1", width // 3, height // 2, 30, 3)
-    workers = [w1,w3,w4]
+    w1 = Worker("w1" ,width // 2, height // 3, 30, 9)
+    w2 =Worker("w2", width // 2, height // 2, 30,  9)
+    w3 =Worker("w3", width // 3, height // 2, 30, 9)
+    workers = [w1,w3,w2]
     r = Restaurant("r",width // 3,height // 2)
     restaurants = [r]
     clock = pygame.time.Clock()
@@ -41,17 +41,21 @@ def main():
 
 
         r_max_weight = restaurants[0]
-        for r in restaurants:
-            r_max_weight = r if r.get_restaurant_weight()>r_max_weight.get_restaurant_weight() else r_max_weight
 
         # todo implement some sort of sort and change the program to accept none type workers
 
-        closest_worker = workers[0]
+        free_workers = []
+        for w in workers:
+            if w.occupiedby =="free" :
+                free_workers.append(w)
+
+
         for w in workers:
             w.deliver()
-            if w.occupiedby is None:
-                closest_worker = w if w.time_to_reach(r_max_weight)< closest_worker.time_to_reach(r_max_weight)else closest_worker
-        r_max_weight.call(closest_worker)
+            r_max_weight.call(w)
+        # todo add call back list
+
+
 
         # trail.insert(0,(w1.x, w1.y))
         # if len(trail) > 21:

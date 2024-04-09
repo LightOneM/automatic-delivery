@@ -13,7 +13,7 @@ class Worker(abs_obj):
         self.max_load = max_load
         self.speed = speed
         self.queue = []
-        self.occupiedby = None
+        self.occupiedby = "free"
 
     def add_order(self, _order):
         self.queue.append(_order)
@@ -35,7 +35,7 @@ class Worker(abs_obj):
             else:
                 self.step_to(_order)
         if not self.queue and self.occupiedby=="delivery":
-            self.occupiedby =None
+            self.occupiedby = "free"
 
     def to_restaurant(self, _rest):
         self.step_to(_rest)
